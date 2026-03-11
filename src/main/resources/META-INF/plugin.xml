@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>io.github.canjiemo.mydict</id>
+    <name>MyDict</name>
+    <vendor email="canjiemo@gmail.com" url="https://github.com/canjiemo">canjiemo</vendor>
+
+    <description><![CDATA[
+        IntelliJ IDEA support for MyDict Spring Boot Starter.<br/>
+        Provides real-time recognition of generated <code>xxxDesc</code> fields and methods
+        without requiring compilation, similar to the Lombok plugin experience.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.psiAugmentProvider
+            implementation="io.github.canjiemo.mydict.MyDictAugmentProvider"/>
+        <postStartupActivity
+            implementation="io.github.canjiemo.mydict.MyDictStartupActivity"/>
+        <notificationGroup id="MyDict"
+                           displayType="BALLOON"
+                           isLogByDefault="false"/>
+    </extensions>
+</idea-plugin>
