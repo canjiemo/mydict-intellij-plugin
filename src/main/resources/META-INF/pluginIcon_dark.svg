@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
   <!-- Book body -->
-  <rect x="7" y="5" width="22" height="30" rx="2" ry="2" fill="#5BA3F5"/>
-  <!-- Book spine -->
-  <rect x="7" y="5" width="4" height="30" rx="1" ry="1" fill="#3A7BD5"/>
-  <!-- Book pages (right edge) -->
-  <rect x="27" y="6" width="2" height="28" rx="1" ry="1" fill="#C8E4FF" opacity="0.5"/>
-  <!-- Lines on book (text simulation) -->
-  <line x1="14" y1="13" x2="26" y2="13" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-  <line x1="14" y1="17" x2="26" y2="17" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-  <line x1="14" y1="21" x2="22" y2="21" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
-  <!-- Code / dict symbol: { } -->
-  <text x="13" y="30" font-family="monospace" font-size="8" font-weight="bold" fill="#FFE066">{}</text>
+  <rect x="7" y="4" width="23" height="32" rx="2" fill="#5BA3F5"/>
+  <!-- Spine -->
+  <rect x="7" y="4" width="5" height="32" rx="2" fill="#3A7BD5"/>
+  <!-- Page edge highlight -->
+  <rect x="28" y="5" width="2" height="30" rx="1" fill="#FFFFFF" opacity="0.25"/>
+  <!-- Text lines -->
+  <rect x="15" y="11" width="12" height="2" rx="1" fill="#FFFFFF" opacity="0.85"/>
+  <rect x="15" y="16" width="12" height="2" rx="1" fill="#FFFFFF" opacity="0.85"/>
+  <rect x="15" y="21" width="8"  height="2" rx="1" fill="#FFFFFF" opacity="0.85"/>
+  <!-- Bookmark ribbon -->
+  <polygon points="23,4 29,4 29,14 26,11 23,14" fill="#FFE066"/>
 </svg>
