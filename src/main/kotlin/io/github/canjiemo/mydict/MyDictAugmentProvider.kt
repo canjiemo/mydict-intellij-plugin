@@ -19,17 +19,21 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
             return emptyList()
         }
 
+        // 必须直接访问 AST 子节点，不能用 element.fields / element.findMethodsByName。
+        // 这些 API 会触发 ClassInnerStuffCache → collectAugments → 再次调用本方法 → StackOverflow。
+        val ownFields = element.children.filterIsInstance<PsiField>()
+        val ownMethods = element.children.filterIsInstance<PsiMethod>()
+
         val result = mutableListOf<PsiElement>()
 
-        for (field in element.fields) {
+        for (field in ownFields) {
             val annotation = field.getAnnotation(MY_DICT_FQN) ?: continue
             val camelCase = resolveCamelCase(annotation)
             val descFieldName = DescNameResolver.resolve(field.name, camelCase)
 
             when {
                 PsiField::class.java.isAssignableFrom(type) -> {
-                    // 如果用户已手动定义该字段，跳过
-                    if (element.findFieldByName(descFieldName, false) == null) {
+                    if (ownFields.none { it.name == descFieldName }) {
                         result.add(buildDescField(element, field, descFieldName))
                     }
                 }
@@ -38,10 +42,10 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
                     val getterName = "get$accessorSuffix"
                     val setterName = "set$accessorSuffix"
 
-                    if (element.findMethodsByName(getterName, false).isEmpty()) {
+                    if (ownMethods.none { it.name == getterName }) {
                         result.add(buildGetter(element, field, getterName))
                     }
-                    if (element.findMethodsByName(setterName, false).isEmpty()) {
+                    if (ownMethods.none { it.name == setterName }) {
                         result.add(buildSetter(element, field, descFieldName, setterName))
                     }
                 }
