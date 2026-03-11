@@ -42,6 +42,11 @@ intellijPlatform {
             untilBuild = provider { null } // no upper limit
         }
     }
+    pluginVerification {
+        ides {
+            ide(providers.gradleProperty("platformVersion"))
+        }
+    }
     signing {
         certificateChain = System.getenv("CERTIFICATE_CHAIN")
         privateKey = System.getenv("PRIVATE_KEY")
