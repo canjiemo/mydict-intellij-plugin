@@ -9,10 +9,8 @@ class OpenAnnotationProcessingSettingsAction :
     NotificationAction("Enable Annotation Processing") {
 
     override fun actionPerformed(e: AnActionEvent, notification: Notification) {
-        ShowSettingsUtil.getInstance().showSettingsDialog(
-            e.project,
-            "Annotation Processors"
-        )
+        val project = e.project ?: return
+        ShowSettingsUtil.getInstance().showSettingsDialog(project, "Annotation Processors")
         notification.expire()
     }
 }

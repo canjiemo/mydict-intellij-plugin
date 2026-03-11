@@ -15,7 +15,7 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
         type: Class<Psi>,
         nameHint: String?
     ): List<Psi> {
-        if (element !is PsiClass || element.isAnnotationType || element.isInterface) {
+        if (element !is PsiClass || element.isAnnotationType || element.isInterface || element.isEnum) {
             return emptyList()
         }
 
@@ -34,15 +34,15 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
                     }
                 }
                 PsiMethod::class.java.isAssignableFrom(type) -> {
-                    val capitalizedDesc = descFieldName.replaceFirstChar { it.uppercaseChar() }
-                    val getterName = "get$capitalizedDesc"
-                    val setterName = "set$capitalizedDesc"
+                    val accessorSuffix = toAccessorSuffix(descFieldName)
+                    val getterName = "get$accessorSuffix"
+                    val setterName = "set$accessorSuffix"
 
                     if (element.findMethodsByName(getterName, false).isEmpty()) {
-                        result.add(buildGetter(element, descFieldName, getterName))
+                        result.add(buildGetter(element, field, descFieldName, getterName))
                     }
                     if (element.findMethodsByName(setterName, false).isEmpty()) {
-                        result.add(buildSetter(element, descFieldName, setterName))
+                        result.add(buildSetter(element, field, descFieldName, setterName))
                     }
                 }
             }
@@ -54,6 +54,12 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
     private fun resolveCamelCase(annotation: PsiAnnotation): Boolean {
         val value = annotation.findAttributeValue("camelCase") ?: return true
         return (value as? PsiLiteralExpression)?.value as? Boolean ?: true
+    }
+
+    /** 将字段名转为访问器后缀（驼峰化），例如 user_status_desc → UserStatusDesc */
+    private fun toAccessorSuffix(fieldName: String): String {
+        return fieldName.split('_')
+            .joinToString("") { it.replaceFirstChar { c -> c.uppercaseChar() } }
     }
 
     private fun buildDescField(
@@ -72,6 +78,7 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
 
     private fun buildGetter(
         containingClass: PsiClass,
+        sourceField: PsiField,
         descFieldName: String,
         getterName: String
     ): PsiMethod {
@@ -81,12 +88,13 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
             setContainingClass(containingClass)
             setMethodReturnType(stringType)
             addModifier(PsiModifier.PUBLIC)
-            navigationElement = containingClass
+            navigationElement = sourceField
         }
     }
 
     private fun buildSetter(
         containingClass: PsiClass,
+        sourceField: PsiField,
         descFieldName: String,
         setterName: String
     ): PsiMethod {
@@ -97,7 +105,7 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
             setMethodReturnType(PsiTypes.voidType())
             addParameter(descFieldName, stringType)
             addModifier(PsiModifier.PUBLIC)
-            navigationElement = containingClass
+            navigationElement = sourceField
         }
     }
 }
