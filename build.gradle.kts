@@ -39,7 +39,7 @@ intellijPlatform {
         version = providers.gradleProperty("pluginVersion")
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
-            // untilBuild not set — no upper limit
+            untilBuild = provider { null } // no upper limit
         }
     }
     signing {
