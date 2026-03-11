@@ -8,7 +8,7 @@ group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 repositories {
@@ -24,7 +24,6 @@ dependencies {
         bundledPlugin("com.intellij.java")
         pluginVerifier()
         zipSigner()
-        instrumentationTools()
     }
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

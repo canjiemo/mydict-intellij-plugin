@@ -39,7 +39,7 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
                     val setterName = "set$accessorSuffix"
 
                     if (element.findMethodsByName(getterName, false).isEmpty()) {
-                        result.add(buildGetter(element, field, descFieldName, getterName))
+                        result.add(buildGetter(element, field, getterName))
                     }
                     if (element.findMethodsByName(setterName, false).isEmpty()) {
                         result.add(buildSetter(element, field, descFieldName, setterName))
@@ -79,7 +79,6 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
     private fun buildGetter(
         containingClass: PsiClass,
         sourceField: PsiField,
-        descFieldName: String,
         getterName: String
     ): PsiMethod {
         val factory = JavaPsiFacade.getElementFactory(containingClass.project)

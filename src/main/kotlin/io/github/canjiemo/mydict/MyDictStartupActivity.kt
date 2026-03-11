@@ -44,7 +44,11 @@ class MyDictStartupActivity : ProjectActivity {
     private fun isAnnotationProcessingEnabled(project: Project): Boolean {
         return try {
             val config = CompilerConfiguration.getInstance(project)
-            config.defaultProcessorProfile.isEnabled
+            // Use reflection to handle API differences across IDEA versions
+            val getProfile = config.javaClass.getMethod("getDefaultProcessorProfile")
+            val profile = getProfile.invoke(config)
+            val isEnabled = profile.javaClass.getMethod("isEnabled")
+            isEnabled.invoke(profile) as Boolean
         } catch (e: Exception) {
             true // 获取不到配置时，不打扰用户
         }
