@@ -60,10 +60,10 @@ class MyDictAugmentProvider : PsiAugmentProvider() {
         return (value as? PsiLiteralExpression)?.value as? Boolean ?: true
     }
 
-    /** 将字段名转为访问器后缀（驼峰化），例如 user_status_desc → UserStatusDesc */
+    /** 将字段名转为访问器后缀，与 Lombok 保持一致：仅首字母大写，不处理下划线。
+     *  例如：statusDesc → StatusDesc，status_desc → Status_desc */
     private fun toAccessorSuffix(fieldName: String): String {
-        return fieldName.split('_')
-            .joinToString("") { it.replaceFirstChar { c -> c.uppercaseChar() } }
+        return fieldName.replaceFirstChar { it.uppercaseChar() }
     }
 
     private fun buildDescField(

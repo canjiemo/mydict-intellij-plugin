@@ -4,9 +4,26 @@
     <vendor email="canjiemo@gmail.com" url="https://github.com/canjiemo">canjiemo</vendor>
 
     <description><![CDATA[
-        IntelliJ IDEA support for MyDict Spring Boot Starter.<br/>
-        Provides real-time recognition of generated <code>xxxDesc</code> fields and methods
-        without requiring compilation, similar to the Lombok plugin experience.
+        IntelliJ IDEA support for <a href="https://github.com/canjiemo/mydict-spring-boot-starter">MyDict Spring Boot Starter</a>.<br/>
+        Provides real-time recognition of generated <code>xxxDesc</code> fields and getter/setter methods
+        without requiring compilation, similar to the Lombok plugin experience.<br/><br/>
+
+        <b>Requirements</b><br/>
+        <ul>
+            <li>IntelliJ IDEA 2024.1 or later（Ultimate / Community）</li>
+            <li>Java plugin enabled（bundled by default）</li>
+            <li>Lombok plugin installed and enabled（if your project uses <code>@Data</code> / <code>@Getter</code>）</li>
+            <li>JDK 17+</li>
+        </ul>
+
+        <b>Usage</b><br/>
+        Annotate your fields with <code>@MyDict</code> and the plugin will automatically provide
+        code completion and type checking for the generated description fields and accessors —
+        no compilation needed.<br/><br/>
+
+        <b>Note</b><br/>
+        This plugin only provides IDE support. The actual code generation at compile time is handled by
+        the <code>mydict-processor</code> annotation processor included in the starter.
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
