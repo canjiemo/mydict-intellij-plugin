@@ -5,8 +5,9 @@
 </p>
 
 <p align="center">
-  <a href="https://plugins.jetbrains.com/plugin/YOUR_PLUGIN_ID"><img src="https://img.shields.io/jetbrains/plugin/v/YOUR_PLUGIN_ID.svg" alt="Version"/></a>
-  <a href="https://plugins.jetbrains.com/plugin/YOUR_PLUGIN_ID"><img src="https://img.shields.io/jetbrains/plugin/d/YOUR_PLUGIN_ID.svg" alt="Downloads"/></a>
+  <a href="https://plugins.jetbrains.com/plugin/30621-mydict"><img src="https://img.shields.io/jetbrains/plugin/v/30621.svg" alt="Version"/></a>
+  <a href="https://plugins.jetbrains.com/plugin/30621-mydict"><img src="https://img.shields.io/jetbrains/plugin/d/30621.svg" alt="Downloads"/></a>
+  <a href="https://central.sonatype.com/artifact/io.github.canjiemo/mydict-spring-boot-starter"><img src="https://img.shields.io/maven-central/v/io.github.canjiemo/mydict-spring-boot-starter.svg" alt="Maven Central"/></a>
   <img src="https://img.shields.io/badge/IDEA-2024.1%2B-blue.svg" alt="IDEA 2024.1+"/>
   <img src="https://img.shields.io/badge/JDK-17%2B-orange.svg" alt="JDK 17+"/>
 </p>
@@ -61,11 +62,13 @@ IDEA → `Settings` → `Plugins` → 搜索 **MyDict** → Install
 
 **Maven 依赖：**
 
+最新版本见顶部 Maven Central badge，或前往 [Maven Central](https://central.sonatype.com/artifact/io.github.canjiemo/mydict-spring-boot-starter) 查询。
+
 ```xml
 <dependency>
     <groupId>io.github.canjiemo</groupId>
     <artifactId>mydict-spring-boot-starter</artifactId>
-    <version>1.0.5-jdk21</version>
+    <version>${latest.version}</version>
 </dependency>
 ```
 
@@ -85,7 +88,7 @@ IDEA → `Settings` → `Plugins` → 搜索 **MyDict** → Install
             <path>
                 <groupId>io.github.canjiemo</groupId>
                 <artifactId>mydict-processor</artifactId>
-                <version>1.0.5-jdk21</version>
+                <version>${latest.version}</version>
             </path>
         </annotationProcessorPaths>
         <fork>true</fork>
