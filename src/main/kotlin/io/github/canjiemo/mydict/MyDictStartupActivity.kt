@@ -4,7 +4,7 @@ import com.intellij.compiler.CompilerConfiguration
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
-import com.intellij.openapi.application.readAction
+import com.intellij.openapi.application.smartReadAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.psi.JavaPsiFacade
@@ -18,7 +18,7 @@ class MyDictStartupActivity : ProjectActivity {
     }
 
     override suspend fun execute(project: Project) {
-        if (!readAction { isMyDictOnClasspath(project) }) return
+        if (!smartReadAction(project) { isMyDictOnClasspath(project) }) return
         if (isAnnotationProcessingEnabled(project)) return
 
         val props = PropertiesComponent.getInstance(project)
