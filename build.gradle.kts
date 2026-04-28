@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.intellij.platform") version "2.3.0"
+    id("org.jetbrains.intellij.platform") version "2.15.0"
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -34,6 +34,7 @@ tasks.test {
 }
 
 intellijPlatform {
+    buildSearchableOptions = false
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
@@ -44,7 +45,7 @@ intellijPlatform {
     }
     pluginVerification {
         ides {
-            ide(providers.gradleProperty("platformVersion"))
+            create("IC", providers.gradleProperty("platformVersion"))
         }
     }
     signing {
